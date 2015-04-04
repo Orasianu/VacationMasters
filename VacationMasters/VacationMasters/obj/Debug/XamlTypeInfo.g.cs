@@ -124,7 +124,7 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[11];
+            _typeNameTable = new string[12];
             _typeNameTable[0] = "VacationMasters.MainPage";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
@@ -136,8 +136,9 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
             _typeNameTable[8] = "System.ValueType";
             _typeNameTable[9] = "Byte";
             _typeNameTable[10] = "VacationMasters.Resources.CircularProgressBar";
+            _typeNameTable[11] = "VacationMasters.UserPage";
 
-            _typeTable = new global::System.Type[11];
+            _typeTable = new global::System.Type[12];
             _typeTable[0] = typeof(global::VacationMasters.MainPage);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
@@ -149,6 +150,7 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
             _typeTable[8] = typeof(global::System.ValueType);
             _typeTable[9] = typeof(global::System.Byte);
             _typeTable[10] = typeof(global::VacationMasters.Resources.CircularProgressBar);
+            _typeTable[11] = typeof(global::VacationMasters.UserPage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -187,6 +189,7 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
         private object Activate_3_Register() { return new global::VacationMasters.Register(); }
         private object Activate_6_DbWrapper() { return new global::VacationMasters.Wrappers.DbWrapper(); }
         private object Activate_10_CircularProgressBar() { return new global::VacationMasters.Resources.CircularProgressBar(); }
+        private object Activate_11_UserPage() { return new global::VacationMasters.UserPage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -201,7 +204,6 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
             case 0:   //  VacationMasters.MainPage
                 userType = new global::VacationMasters.VacationMasters_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
                 userType.Activator = Activate_0_MainPage;
-                userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
@@ -218,14 +220,12 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
                 userType.Activator = Activate_3_Register;
                 userType.AddMemberName("UserManager");
                 userType.AddMemberName("DbWrapper");
-                userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
             case 4:   //  VacationMasters.UserManagement.UserManager
                 userType = new global::VacationMasters.VacationMasters_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.SetIsReturnTypeStub();
-                userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
@@ -236,7 +236,6 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
             case 6:   //  VacationMasters.Wrappers.DbWrapper
                 userType = new global::VacationMasters.VacationMasters_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
                 userType.SetIsReturnTypeStub();
-                userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
@@ -263,7 +262,12 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
             case 10:   //  VacationMasters.Resources.CircularProgressBar
                 userType = new global::VacationMasters.VacationMasters_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.UserControl"));
                 userType.Activator = Activate_10_CircularProgressBar;
-                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 11:   //  VacationMasters.UserPage
+                userType = new global::VacationMasters.VacationMasters_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_11_UserPage;
                 xamlType = userType;
                 break;
             }
@@ -414,7 +418,6 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
         virtual public bool IsMarkupExtension { get { throw new global::System.NotImplementedException(); } }
         virtual public bool IsBindable { get { throw new global::System.NotImplementedException(); } }
         virtual public bool IsReturnTypeStub { get { throw new global::System.NotImplementedException(); } }
-        virtual public bool IsLocalType { get { throw new global::System.NotImplementedException(); } }
         virtual public global::Windows.UI.Xaml.Markup.IXamlType ItemType { get { throw new global::System.NotImplementedException(); } }
         virtual public global::Windows.UI.Xaml.Markup.IXamlType KeyType { get { throw new global::System.NotImplementedException(); } }
         virtual public object ActivateInstance() { throw new global::System.NotImplementedException(); }
@@ -439,7 +442,6 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
         bool _isMarkupExtension;
         bool _isBindable;
         bool _isReturnTypeStub;
-        bool _isLocalType;
 
         string _contentPropertyName;
         string _itemTypeName;
@@ -464,7 +466,6 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
         override public bool IsMarkupExtension { get { return _isMarkupExtension; } }
         override public bool IsBindable { get { return _isBindable; } }
         override public bool IsReturnTypeStub { get { return _isReturnTypeStub; } }
-        override public bool IsLocalType { get { return _isLocalType; } }
 
         override public global::Windows.UI.Xaml.Markup.IXamlMember ContentProperty
         {
@@ -596,11 +597,6 @@ namespace VacationMasters.VacationMasters_XamlTypeInfo
         public void SetIsReturnTypeStub()
         {
             _isReturnTypeStub = true;
-        }
-
-        public void SetIsLocalType()
-        {
-            _isLocalType = true;
         }
 
         public void SetItemTypeName(string itemTypeName)
