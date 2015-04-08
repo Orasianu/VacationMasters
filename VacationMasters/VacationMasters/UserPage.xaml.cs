@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using VacationMasters.Wrappers;
+using VacationMasters.UserManagement;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,11 +25,13 @@ namespace VacationMasters
     public sealed partial class UserPage : Page
     {
         private IDbWrapper _dbWrapper;
+        private IUserManager _userManager;
 
         public UserPage()
         {
             this.InitializeComponent();
             _dbWrapper = new DbWrapper();
+            _userManager = new UserManager(_dbWrapper);
             FillCombo2();
             FillCombo1();
         }
@@ -80,20 +83,22 @@ namespace VacationMasters
             this.Frame.Navigate(typeof(MainPage), null);
         }
         public static string UserName { set; get; }
-        private void change_email_Click(object sender, RoutedEventArgs e)
+
+
+        private void save_Click(object sender, RoutedEventArgs e)
         {
 
-            var Sql = string.Format("Update Users set Email  = '{0}'  where Username = '{1}' ",
-                this.text_box_email, UserName);
+
+            _userManager.UpdateUser(
+                UserName, 
+                text_box_email.Text, 
+                password_box.ToString(), 
+                confirm_password_box.ToString(), 
+                combo1.SelectedValue!=null?combo1.SelectedValue.ToString():string.Empty, 
+                combo2.SelectedValue!=null?combo2.SelectedValue.ToString():string.Empty);
+
         }
-
-        private void change_password_Click(object sender, RoutedEventArgs e)
-        {
-            var Sql = string.Format("Upadate Users set Password = '{0}' where Username = '{1}'",
-                this.text_box_password, UserName);
-
-        }
-
+       
         
     }
 }

@@ -4,6 +4,7 @@ using VacationMasters.Essentials;
 using VacationMasters.UnitTests.Infrastructure;
 using VacationMasters.UserManagement;
 using VacationMasters.Wrappers;
+using System;
 
 namespace VacationMasters.UnitTests.DatabaseTests
 {
@@ -39,6 +40,26 @@ namespace VacationMasters.UnitTests.DatabaseTests
             preferences.Add(1);preferences.Add(2);
             Assert.DoesNotThrow(() => _userManagement.AddUser(user, password, preferences));
             Assert.DoesNotThrow(() => _userManagement.RemoveUser(user.UserName));
+        }
+
+        [Test]
+        public void UpdateUserUpdateChanged()
+        {
+            var password = CreateRandom.String();
+            var user = new User(CreateRandom.String(), CreateRandom.String(), CreateRandom.String(),
+               CreateRandom.String(), CreateRandom.String(), false, CreateRandom.String(), CreateRandom.String());
+
+            _userManagement.AddUser(user, password);
+
+            var email = "test@test.com";
+            throw new Exception("eee)");
+            //Update
+            
+            //GetUser
+           //Asert.Equals(user.Email == email);
+
+            _userManagement.RemoveUser(user.UserName);
+
         }
 
         public void MultipleUsersCanLoginAtTheSameTime()

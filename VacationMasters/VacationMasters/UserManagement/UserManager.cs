@@ -51,6 +51,47 @@ namespace VacationMasters.UserManagement
             false, type, user.KeyWordSearches);
             _dbWrapper.QueryValue<object>(sql);
         }
+        public void UpdateUser(string user, string email, string password, string password_confirm, string PreferencesCountry, string PreferencesType )
+        {
+            var input = CryptographicBuffer.ConvertStringToBinary(password,
+            BinaryStringEncoding.Utf8);
+            var hasher = HashAlgorithmProvider.OpenAlgorithm("SHA256");
+            var hashed = hasher.HashData(input);
+            var pwd = CryptographicBuffer.EncodeToBase64String(hashed);
+            if (email != null && password == null && PreferencesCountry == null && PreferencesType == null)
+             {
+                var sql = string.Format("Update Users set Email = {0}", email);
+                _dbWrapper.QueryValue<object>(sql);
+             }
+            if( email == null && password != null && PreferencesCountry == null && PreferencesType == null)
+            {
+                if (password == password_confirm)
+                {
+                    var sql = string.Format("Update Users set Password = {0}", password);
+                    _dbWrapper.QueryValue<object>(sql);
+                }
+            }
+            if ( email == null && password == null && PreferencesCountry != null && PreferencesType == null)
+            {
+                var sql = string.Format("Select ID from User where UserName = {0}", user);
+                var idUser = _dbWrapper.QueryValue<object>(sql);
+                var sql1 = string.Format("Select ID from Preferences where name = {0} and Category = 'Country'", PreferencesCountry);
+                var idPreferences =  _dbWrapper.QueryValue<object>(sql);
+                var sql2 = string.Format("INSERT INTO ChoosePreferences(IDUser,IDPreference) values('{0}','{1}');", idUser, idPreferences);
+                
+            }
+            if(  email == null && password == null && PreferencesCountry == null && PreferencesType != null)
+            {
+                var sql = string.Format("Select ID from User where UserName = {0}", user);
+                var idUser = _dbWrapper.QueryValue<object>(sql);
+                var sql1 = string.Format("Select ID from Preferences where name = {0} and Category = 'Type'", PreferencesType);
+                var idPreferences = _dbWrapper.QueryValue<object>(sql);
+                var sql2 = string.Format("INSERT INTO ChoosePreferences(IDUser,IDPreference) values('{0}','{1}');", idUser, idPreferences);
+
+            }
+
+        }
+
 
         public bool CheckIfUserExists(string userName)
         {
@@ -85,7 +126,7 @@ namespace VacationMasters.UserManagement
             }
             _dbWrapper.QueryValue<object>(sql);
         }
-
+        
         public void AddPreference(Preference preference)
         {
             var sql = string.Format("INSERT INTO Preferences(Name,Category) values ('{0}','{1}');", preference.Name, preference.Category);
