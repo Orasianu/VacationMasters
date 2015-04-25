@@ -36,12 +36,20 @@ namespace VacationMasters.UserManagement
         User GetUser(string userName);
 
         /// <summary>
-        /// Add new user to the database
+        /// Add new user without preferences to the database
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
         /// <param name="type"></param>
         void AddUser(User user, string password, string type = "User");
+
+        /// <summary>
+        /// Adds new user with preferences to the database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <param name="preferencesId"></param>
+        /// <param name="type"></param>
         void AddUser(User user, string password, List<int> preferencesId, string type = "User");
 
         /// <summary>
@@ -49,6 +57,21 @@ namespace VacationMasters.UserManagement
         /// </summary>
         /// <param name="userName"></param>
         void RemoveUser(string userName);
+<<<<<<< HEAD
         void UpdateUser(string user, bool newsletter, string email, string password, string confirm_password, string PreferencesCountry, string PreferencesType);
+=======
+
+        /// <summary>
+        /// Bans a user, restrict access
+        /// </summary>
+        /// <param name="userName"></param>
+        void BanUser(string userName);
+
+        /// <summary>
+        /// Lifts ban for a user, give access back
+        /// </summary>
+        /// <param name="userName"></param>
+        void UnbanUser(string userName);
+>>>>>>> e5658eda3422d633bcb623984238bab42fee6ef3
     }
 }
