@@ -41,6 +41,28 @@ namespace VacationMasters.UnitTests.DatabaseTests
             Assert.DoesNotThrow(() => _userManagement.RemoveUser(user.UserName));
         }
 
+        [Test]
+        public void ChangeUser()
+        {
+            var password = CreateRandom.String();
+            var user = new User(CreateRandom.String(), CreateRandom.String(), CreateRandom.String(),
+                CreateRandom.String(), CreateRandom.String(), false, CreateRandom.String(), CreateRandom.String());
+            var preferences = new List<int>();
+            _userManagement.AddUser(user, password);
+
+            var email = "test@test.com";
+          
+                  // throw new Exception("eee)");
+            Assert.DoesNotThrow(()=>_userManagement.UpdateUser(user.UserName,false, email, null, null, null, null));
+
+            //var user1 = GetUuser(user.UserName);
+
+            //Assert.That(user1.Email == user.Email));
+
+            _userManagement.RemoveUser(user.UserName);
+
+          
+        }
         public void MultipleUsersCanLoginAtTheSameTime()
         {
             //TODO:this

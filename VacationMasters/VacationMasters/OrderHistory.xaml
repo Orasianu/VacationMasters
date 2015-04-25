@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="VacationMasters.OrderHistory"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VacationMasters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="110" />
+
+            <RowDefinition Height="280"/>
+            <RowDefinition Height="31"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="700" />
+
+            <ColumnDefinition Width="315"/>
+
+        </Grid.ColumnDefinitions>
+
+
+            <TextBox HorizontalAlignment="Left" IsReadOnly="true" Name="textbox1" Margin="40,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="629" Height="214" Grid.Row="1">
+            </TextBox>
+        <Button Content="Cancel Order" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="68,207,0,-214" Grid.Row="2" VerticalAlignment="Top" Width="145" Click="Button_Click"/>
+        
+        <Button Content="Back" HorizontalAlignment="Left" Margin="37,42,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_Back"/>
+
+
+
+    </Grid>
+</Page>

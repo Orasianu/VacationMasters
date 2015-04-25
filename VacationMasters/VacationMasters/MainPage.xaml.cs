@@ -49,7 +49,7 @@ namespace VacationMasters
 
         private void user_panel_Click(object sender, RoutedEventArgs e)
         {
-            // this.Frame.Navigate(typeof(UserPanel), null);
+             this.Frame.Navigate(typeof(UserPage), null);
 
         }
 

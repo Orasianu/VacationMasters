@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 namespace VacationMasters.Wrappers
 {
@@ -24,5 +25,7 @@ namespace VacationMasters.Wrappers
         /// <param name="sqlQuery"></param>
         /// <returns></returns>
         T QueryValue<T>(string sqlQuery);
+        List <string> GetPreferences();
+        List <string> GetType();
     }
 }

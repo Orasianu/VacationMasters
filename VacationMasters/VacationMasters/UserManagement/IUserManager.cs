@@ -49,5 +49,6 @@ namespace VacationMasters.UserManagement
         /// </summary>
         /// <param name="userName"></param>
         void RemoveUser(string userName);
+        void UpdateUser(string user, bool newsletter, string email, string password, string confirm_password, string PreferencesCountry, string PreferencesType);
     }
 }

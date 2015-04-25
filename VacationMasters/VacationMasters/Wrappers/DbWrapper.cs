@@ -100,6 +100,36 @@ namespace VacationMasters.Wrappers
                 return list;
             });
         }
+        public List<String> GetPreferences()
+        {
+            return RunCommand(command =>
+            {
+                command.CommandText = "Select Name from Preferences where Category = 'Country';";
+                var reader = command.ExecuteReader();
+                var list = new List<String>();
+                while (reader.Read())
+                {
+                    string preference = reader.GetString(0);
+                    list.Add(preference);
+                }
+                return list;
+            });
+        }
+        public List<String> GetType()
+        {
+            return RunCommand(command =>
+            {
+                command.CommandText = "Select Name from Preferences where Category = 'Type';";
+                var reader = command.ExecuteReader();
+                var list = new List<String>();
+                while (reader.Read())
+                {
+                    string preference = reader.GetString(0);
+                    list.Add(preference);
+                }
+                return list;
+            });
+        }
 
        /* public List<Package> GetAllPackages()
         {
