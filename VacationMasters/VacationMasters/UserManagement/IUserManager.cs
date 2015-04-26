@@ -57,8 +57,22 @@ namespace VacationMasters.UserManagement
         /// </summary>
         /// <param name="userName"></param>
         void RemoveUser(string userName);
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        string GetMail(string userName);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="newsletter"></param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="confirm_password"></param>
+        /// <param name="PreferencesCountry"></param>
+        /// <param name="PreferencesType"></param>
         void UpdateUser(string user, bool newsletter, string email, string password, string confirm_password, string PreferencesCountry, string PreferencesType);
 
         /// <summary>

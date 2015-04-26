@@ -52,7 +52,6 @@ namespace VacationMasters.UnitTests.DatabaseTests
         }
 
         [Test]
-
         public void ChangeUser()
         {
             var password = CreateRandom.String();
@@ -66,9 +65,9 @@ namespace VacationMasters.UnitTests.DatabaseTests
                   // throw new Exception("eee)");
             Assert.DoesNotThrow(()=>_userManagement.UpdateUser(user.UserName,false, email, null, null, null, null));
 
-            //var user1 = GetUuser(user.UserName);
+            var user1 = _userManagement.GetUser(user.UserName);
 
-            //Assert.That(user1.Email == user.Email));
+            Assert.That(user1.Email == email);
 
             _userManagement.RemoveUser(user.UserName);
 

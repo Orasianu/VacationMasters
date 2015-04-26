@@ -59,6 +59,7 @@ namespace VacationMasters.UserManagement
                 return user;
             });
         }
+       
 
         public void AddUser(User user, string password, string type = "User")
         {
@@ -74,6 +75,38 @@ namespace VacationMasters.UserManagement
             false, type, user.KeyWordSearches);
             _dbWrapper.QueryValue<object>(sql);
         }
+
+        public string GetMail(string userName)
+        {
+            var mail = string.Format("SELECT Email FROM Users where UserName = '{0}';", userName);
+            return mail;
+        }
+        public string GetPassword(string userName)
+        {
+            var password = string.Format("SELECT Password FROM Users where UserName = '{0}';", userName);
+            return password;
+        }
+
+        public List<String> GetPreferencesUser(string userName)
+        {
+            return _dbWrapper.RunCommand(command =>
+            {
+                command.CommandText = string.Format("Select Name from Preferences, ChoosePreferences, Users where " +
+                    "Preferences.ID = ChoosePrefereces.IDPreference and "+
+                    "ChoosePreferences.IDUser = Users.ID and UserName = '{0}'; ",userName) ;
+                var reader = command.ExecuteReader();
+                var list = new List<String>();
+                while (reader.Read())
+                {
+                    var name = reader.GetString(0);
+                   
+                    list.Add(name);
+                }
+                return list;
+            });
+
+
+        }
         public void UpdateUser(string user, bool newsletter, string email, string password, string password_confirm, string PreferencesCountry, string PreferencesType)
         {
             var input = CryptographicBuffer.ConvertStringToBinary(password,
@@ -81,12 +114,12 @@ namespace VacationMasters.UserManagement
             var hasher = HashAlgorithmProvider.OpenAlgorithm("SHA256");
             var hashed = hasher.HashData(input);
             var pwd = CryptographicBuffer.EncodeToBase64String(hashed);
-            if (email != null && password == null && newsletter == false && PreferencesCountry == null && PreferencesType == null)
+            if (email != GetMail(user))
             {
                 var sql = string.Format("Update Users set Email = {0}", email);
                 _dbWrapper.QueryValue<object>(sql);
             }
-            if (email == null && password != null && newsletter == false && PreferencesCountry == null && PreferencesType == null)
+            if (password != GetPassword(user))
             {
                 if (password == password_confirm)
                 {
@@ -94,27 +127,44 @@ namespace VacationMasters.UserManagement
                     _dbWrapper.QueryValue<object>(sql);
                 }
             }
-            if (email == null && password == null && newsletter == false && PreferencesCountry != null && PreferencesType == null)
+
+            var list = GetPreferencesUser(user);
+            var ok = 1;
+            foreach (string i in list)
+
+                if (i == PreferencesCountry)
+                    ok = 0;
+            if (ok==1)
             {
-                var sql = string.Format("Select ID from User where UserName = {0}", user);
+                var sql = string.Format("Select ID from User where UserName = '{0}';", user);
                 var idUser = _dbWrapper.QueryValue<object>(sql);
-                var sql1 = string.Format("Select ID from Preferences where name = {0} and Category = 'Country'", PreferencesCountry);
+                var sql1 = string.Format("Select ID from Preferences where name = '{0}' and Category = 'Country'", PreferencesCountry);
                 var idPreferences = _dbWrapper.QueryValue<object>(sql);
                 var sql2 = string.Format("INSERT INTO ChoosePreferences(IDUser,IDPreference) values('{0}','{1}');", idUser, idPreferences);
 
             }
-            if (email == null && password == null && newsletter == false && PreferencesCountry == null && PreferencesType != null)
+                var ok1 = 1;
+            foreach(string i in list)
+                 if(i == PreferencesType)
+                     ok1=0;
+            if (ok1==1)
             {
-                var sql = string.Format("Select ID from User where UserName = {0}", user);
+                var sql = string.Format("Select ID from User where UserName = '{0}';", user);
                 var idUser = _dbWrapper.QueryValue<object>(sql);
                 var sql1 = string.Format("Select ID from Preferences where name = {0} and Category = 'Type'", PreferencesType);
                 var idPreferences = _dbWrapper.QueryValue<object>(sql);
                 var sql2 = string.Format("INSERT INTO ChoosePreferences(IDUser,IDPreference) values('{0}','{1}');", idUser, idPreferences);
 
             }
-            if( email == null && password == null && newsletter == true && PreferencesCountry == null && PreferencesType == null)
+            
             {
                     // update newsletter
+                var sql = string.Format("SELECT Newsletter from User where UserName = '{0}';",user);
+                var news = _dbWrapper.QueryValue<object>(sql);
+              //  if (news == newsletter)
+                { 
+                
+                }
             }
         }
 
