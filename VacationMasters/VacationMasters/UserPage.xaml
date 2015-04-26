@@ -50,7 +50,7 @@
 
         <Button Content="Order History" HorizontalAlignment="Left" Margin="96,51,0,0"  FontSize="16" Click="order_history_Click" VerticalAlignment="Top" Width="145" Grid.Column="2" Grid.Row="3" Height="40"/>
         <Button Content="Save Changes" HorizontalAlignment="Left" Margin="250,110,0,0" VerticalAlignment="Top" Click="save_Click" Width="145" Grid.Column="2" Grid.Row="5" Height="38"/>
-        <Button Content="Log Out" Grid.Column="2" HorizontalAlignment="Left" Margin="404,12,0,0" VerticalAlignment="Top" Width="119" Height="38"/>
+        <Button Content="Log Out" Grid.Column="2" HorizontalAlignment="Left" Margin="404,12,0,0" VerticalAlignment="Top" Width="119" Height="38" Click="LogOut"/>
 
 
 

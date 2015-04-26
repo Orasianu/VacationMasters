@@ -57,9 +57,9 @@ namespace VacationMasters.UserManagement
         /// </summary>
         /// <param name="userName"></param>
         void RemoveUser(string userName);
-<<<<<<< HEAD
+
+
         void UpdateUser(string user, bool newsletter, string email, string password, string confirm_password, string PreferencesCountry, string PreferencesType);
-=======
 
         /// <summary>
         /// Bans a user, restrict access
@@ -72,6 +72,5 @@ namespace VacationMasters.UserManagement
         /// </summary>
         /// <param name="userName"></param>
         void UnbanUser(string userName);
->>>>>>> e5658eda3422d633bcb623984238bab42fee6ef3
     }
 }

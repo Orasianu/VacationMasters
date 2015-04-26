@@ -68,13 +68,16 @@ namespace VacationMasters
             {
 
             }
-            private void log_out_Click(object sender, RoutedEventArgs e)//LogOut
+            private void LogOut(object sender, RoutedEventArgs e)//LogOut
             {
                 this.Frame.Navigate(typeof(MainPage), null);
             }
             public static string UserName { set; get; }
 
-
+            public void FillText(object sender, RoutedEventArgs e)
+            { 
+                text_box_email.Text = _userManager.GetMail(UserName);
+            }
             private void save_Click(object sender, RoutedEventArgs e)
             {
                 bool var;

@@ -40,7 +40,7 @@ namespace VacationMasters.Wrappers
             await msgDlg.ShowAsync();
         }
 
-        private void RunCommand(Action<MySqlCommand> func)
+        public void RunCommand(Action<MySqlCommand> func)
         {
             RunCommand(c =>
             {
