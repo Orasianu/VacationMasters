@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Navigation;
 using VacationMasters.Wrappers;
 using VacationMasters.UserManagement;
 using System.Threading.Tasks;
+//import 
+// using Microsoft.AspNet.Identity
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -87,7 +89,12 @@ namespace VacationMasters
                      var = true;
                else 
                     var = false;
-
+/*
+ strCurrentUserId = User.Identity.GetUserId();
+ * 
+ * 
+ 
+ */
                 _userManager.UpdateUser(
                     UserName,
                     var,

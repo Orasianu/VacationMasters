@@ -161,7 +161,7 @@ namespace VacationMasters.UserManagement
                     // update newsletter
                 var sql = string.Format("SELECT Newsletter from User where UserName = '{0}';",user);
                 var news = _dbWrapper.QueryValue<object>(sql);
-              //  if (news == newsletter)
+               // if (news == true && newsletter == true )
                 { 
                 
                 }
