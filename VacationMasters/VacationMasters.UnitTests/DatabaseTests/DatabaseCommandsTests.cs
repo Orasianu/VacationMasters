@@ -63,7 +63,14 @@ namespace VacationMasters.UnitTests.DatabaseTests
             var email = "test@test.com";
           
                   // throw new Exception("eee)");
-            Assert.DoesNotThrow(()=>_userManagement.UpdateUser(user.UserName,false, email, null, null, null, null));
+           
+            Assert.DoesNotThrow(() => _userManagement.UpdateUser(user.UserName, 
+                                                                 false, 
+                                                                 email,
+                                                                 _userManagement.GetPassword(user.UserName),
+                                                                 _userManagement.GetPassword(user.UserName),
+                                                                 null, 
+                                                                 null));
 
             var user1 = _userManagement.GetUser(user.UserName);
 

@@ -107,7 +107,7 @@ namespace VacationMasters
                 _userManager.UpdateUser(
                     UserName,
                     var,
-                    text_box_email.Text,
+                    text_box_email.Text ,
                     password_box.Password,
                     confirm_password_box.Password,
                     combo1.SelectedValue != null ? combo1.SelectedValue.ToString() : string.Empty,

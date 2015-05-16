@@ -85,7 +85,8 @@ namespace VacationMasters.UserManagement
         }
         public string GetPassword(string userName)
         {
-            var password = string.Format("SELECT Password FROM Users where UserName = '{0}';", userName);
+            var sql = string.Format("SELECT Password FROM Users where UserName = '{0}';", userName);
+            var password = _dbWrapper.QueryValue<string>(sql);
             return password;
         }
 
@@ -94,7 +95,7 @@ namespace VacationMasters.UserManagement
             return _dbWrapper.RunCommand(command =>
             {
                 command.CommandText = string.Format("Select Name from Preferences, ChoosePreferences, Users where " +
-                    "Preferences.ID = ChoosePrefereces.IDPreference and "+
+                    "Preferences.ID = ChoosePreferences.IDPreference and "+
                     "ChoosePreferences.IDUser = Users.ID and UserName = '{0}'; ",userName) ;
                 var reader = command.ExecuteReader();
                 var list = new List<String>();
@@ -140,7 +141,7 @@ namespace VacationMasters.UserManagement
                     ok = 0;
             if (ok==1)
             {
-                var sql = string.Format("Select ID from User where UserName = '{0}';", user);
+                var sql = string.Format("Select ID from Users where UserName = '{0}';", user);
                 var idUser = _dbWrapper.QueryValue<object>(sql);
                 var sql1 = string.Format("Select ID from Preferences where name = '{0}' and Category = 'Country'", PreferencesCountry);
                 var idPreferences = _dbWrapper.QueryValue<object>(sql);
@@ -153,7 +154,7 @@ namespace VacationMasters.UserManagement
                      ok1=0;
             if (ok1==1)
             {
-                var sql = string.Format("Select ID from User where UserName = '{0}';", user);
+                var sql = string.Format("Select ID from Users where UserName = '{0}';", user);
                 var idUser = _dbWrapper.QueryValue<object>(sql);
                 var sql1 = string.Format("Select ID from Preferences where name = {0} and Category = 'Type'", PreferencesType);
                 var idPreferences = _dbWrapper.QueryValue<object>(sql);
@@ -163,7 +164,7 @@ namespace VacationMasters.UserManagement
             
             {
                     // update newsletter
-                var sql = string.Format("SELECT Newsletter from User where UserName = '{0}';",user);
+                var sql = string.Format("SELECT Newsletter from Users where UserName = '{0}';",user);
                 var news = _dbWrapper.QueryValue<object>(sql);
                // if (news == true && newsletter == true )
                 { 
