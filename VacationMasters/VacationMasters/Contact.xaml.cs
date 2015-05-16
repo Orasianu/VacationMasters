@@ -26,5 +26,10 @@ namespace VacationMasters
         {
             this.InitializeComponent();
         }
+
+        private void Send(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

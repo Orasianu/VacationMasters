@@ -28,12 +28,12 @@ namespace VacationMasters
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CancelOrder(object sender, RoutedEventArgs e)
         {
 
         }
 
-       private void Button_Click_Back(object sender, RoutedEventArgs e)
+       private void Back(object sender, RoutedEventArgs e)
         {
            
            
@@ -41,5 +41,7 @@ namespace VacationMasters
 
 
         }
+
+      
     }
 }

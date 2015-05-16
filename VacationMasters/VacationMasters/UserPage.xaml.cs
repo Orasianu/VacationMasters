@@ -36,37 +36,51 @@ namespace VacationMasters
             this.InitializeComponent();
             _dbWrapper = new DbWrapper();
             _userManager = new UserManager(_dbWrapper);
-            Task.Run(() => Initialize());    
+           // Task.Run(() => Initialize());
+            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {Initialize(); });
         }
 
         private void Initialize()
         {
-            try
-            {
                 FillCombo2();
                 FillCombo1();
+                FillText();
+                FillPassword();
+                FillConfirmPassword();
+
+        }
+
+            public static string UserName { set; get; }
+            private void FillCombo2()
+            {
+                    // var Sql = string.Format("Select Category from Preferences  ");
+                    var preferences= _dbWrapper.GetPreferences();
+                    combo1.ItemsSource = preferences.ToArray();
+
             }
-            catch (Exception e) { }
-        }
-
-            
-        private void FillCombo2()
-        {
-                // var Sql = string.Format("Select Category from Preferences  ");
-            combo1.ItemsSource = _dbWrapper.GetPreferences();
-
-        }
 
             private void FillCombo1()
             {
                 combo2.ItemsSource = _dbWrapper.GetType();
             }
+            public void FillText()
+            {
+                text_box_email.Text = _userManager.GetMail(UserName);
+            }
+            public void FillPassword()
+            {
+                password_box.Password = _userManager.GetPassword(UserName);
+            }
+            public void FillConfirmPassword()
+            {
+                confirm_password_box.Password = _userManager.GetPassword(UserName);
+            }
 
-            private void order_history_Click(object sender, RoutedEventArgs e)//OrderHistory
+            private void OrderHistory(object sender, RoutedEventArgs e)//OrderHistory
             {
                 this.Frame.Navigate(typeof(OrderHistory), null);
             }
-            private void browse_Click(object sender, RoutedEventArgs e)
+            private void Browse(object sender, RoutedEventArgs e)
             {
 
             }
@@ -74,13 +88,10 @@ namespace VacationMasters
             {
                 this.Frame.Navigate(typeof(MainPage), null);
             }
-            public static string UserName { set; get; }
+           
 
-            public void FillText(object sender, RoutedEventArgs e)
-            { 
-                text_box_email.Text = _userManager.GetMail(UserName);
-            }
-            private void save_Click(object sender, RoutedEventArgs e)
+         
+            private void SaveChanges(object sender, RoutedEventArgs e)
             {
                 bool var;
                  
@@ -89,18 +100,16 @@ namespace VacationMasters
                      var = true;
                else 
                     var = false;
-/*
- strCurrentUserId = User.Identity.GetUserId();
- * 
- * 
+                    /*\
+                     strCurrentUserId = User.Identity.GetUserId();
  
- */
+                     */
                 _userManager.UpdateUser(
                     UserName,
                     var,
                     text_box_email.Text,
-                    password_box.ToString(),
-                    confirm_password_box.ToString(),
+                    password_box.Password,
+                    confirm_password_box.Password,
                     combo1.SelectedValue != null ? combo1.SelectedValue.ToString() : string.Empty,
                     combo2.SelectedValue != null ? combo2.SelectedValue.ToString() : string.Empty);
 

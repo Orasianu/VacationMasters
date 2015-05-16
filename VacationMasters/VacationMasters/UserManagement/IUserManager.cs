@@ -73,6 +73,8 @@ namespace VacationMasters.UserManagement
         /// <param name="confirm_password"></param>
         /// <param name="PreferencesCountry"></param>
         /// <param name="PreferencesType"></param>
+        string GetPassword(string userName);
+
         void UpdateUser(string user, bool newsletter, string email, string password, string confirm_password, string PreferencesCountry, string PreferencesType);
 
         /// <summary>

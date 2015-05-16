@@ -78,8 +78,10 @@ namespace VacationMasters.UserManagement
 
         public string GetMail(string userName)
         {
-            var mail = string.Format("SELECT Email FROM Users where UserName = '{0}';", userName);
-            return mail;
+            
+               var sql = string.Format("SELECT Email FROM Users where UserName = '{0}';", userName);
+               var mail = _dbWrapper.QueryValue<string>(sql);
+               return mail;
         }
         public string GetPassword(string userName)
         {
@@ -116,14 +118,14 @@ namespace VacationMasters.UserManagement
             var pwd = CryptographicBuffer.EncodeToBase64String(hashed);
             if (email != GetMail(user))
             {
-                var sql = string.Format("Update Users set Email = {0}", email);
+                var sql = string.Format("Update Users set Email = '{0}' where UserName = '{1}';", email, user);
                 _dbWrapper.QueryValue<object>(sql);
             }
             if (password != GetPassword(user))
             {
                 if (password == password_confirm)
                 {
-                    var sql = string.Format("Update Users set Password = {0}", pwd);
+                    var sql = string.Format("Update Users set Password = '{0}' where UserName = '{1}';", pwd, user);
                     _dbWrapper.QueryValue<object>(sql);
                 }
             }

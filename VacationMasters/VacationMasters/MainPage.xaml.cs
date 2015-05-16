@@ -16,15 +16,15 @@ namespace VacationMasters
 
          public MainPage()
         {
-            this.DbWrapper = new DbWrapper();
+            /*this.DbWrapper = new DbWrapper();
             var types = DbWrapper.GetTypes();
             this.InitializeComponent();
-            foreach (String t in types)
+           foreach (String t in types)
                 type_combo.Items.Add(t);
            /*     type_combo.Items.Add("elem1");
                 type_combo.Items.Add("elem2");*/
             
-            this.DataContext = this;
+           this.DataContext = this;
            /* this.DbWrapper = new DbWrapper();
             var packageList = this.DbWrapper.GetAllPackages();*/
             this.InitializeComponent();
@@ -47,7 +47,7 @@ namespace VacationMasters
 
         private void Home(object sender, RoutedEventArgs e)
         {
-             this.Frame.Navigate(typeof(UserPage), null);
+        
         }
 
         private void Packages(object sender, RoutedEventArgs e)
@@ -57,7 +57,7 @@ namespace VacationMasters
 
         private void UserPanel(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(UserPage), null);
         }
 
         private void Contact(object sender, RoutedEventArgs e)
