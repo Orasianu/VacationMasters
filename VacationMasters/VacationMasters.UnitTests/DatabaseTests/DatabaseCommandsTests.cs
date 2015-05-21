@@ -97,7 +97,7 @@ namespace VacationMasters.UnitTests.DatabaseTests
 
             Assert.DoesNotThrow(() => _userManagement.UpdateUser(user.UserName,
                                                                  false,
-                                                                 _userManagement.GetMail(user.UserNme),
+                                                                 _userManagement.GetMail(user.UserName),
                                                                   pass,
                                                                   pass,
                                                                  null,
@@ -105,12 +105,13 @@ namespace VacationMasters.UnitTests.DatabaseTests
 
             var user1 = _userManagement.GetUser(user.UserName);
 
-            Assert.That(user1.Password == pass);
+            Assert.That(_userManagement.GetPassword(user1.UserName)== pass);
 
             _userManagement.RemoveUser(user.UserName);
 
         }
-
+       // [Test]
+       // public void  ChangePreferencesUser()
 
         public void GetUserShouldNotThrow()
         {
