@@ -81,6 +81,37 @@ namespace VacationMasters.UnitTests.DatabaseTests
           
         }
 
+        [Test]
+        public void ChangeUserPassword()
+        {
+
+            var password = CreateRandom.String();
+            var user = new User(CreateRandom.String(), CreateRandom.String(), CreateRandom.String(),
+                CreateRandom.String(), CreateRandom.String(), false, CreateRandom.String(), CreateRandom.String());
+            var preferences = new List<int>();
+            _userManagement.AddUser(user, password);
+
+            var pass = "mmmmm";
+
+            // throw new Exception("eee)");
+
+            Assert.DoesNotThrow(() => _userManagement.UpdateUser(user.UserName,
+                                                                 false,
+                                                                 _userManagement.GetMail(user.UserNme),
+                                                                  pass,
+                                                                  pass,
+                                                                 null,
+                                                                 null));
+
+            var user1 = _userManagement.GetUser(user.UserName);
+
+            Assert.That(user1.Password == pass);
+
+            _userManagement.RemoveUser(user.UserName);
+
+        }
+
+
         public void GetUserShouldNotThrow()
         {
             var password = CreateRandom.String();
