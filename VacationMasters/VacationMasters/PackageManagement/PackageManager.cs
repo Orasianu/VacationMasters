@@ -99,6 +99,7 @@ namespace VacationMasters.PackageManagement
             return sortedPackagesByPrefrences;
         }
 
+       
         public List<Package> GetPackagesByHistoric()
         {
             User loggedUser = MainPage.CurrentUser;

@@ -8,6 +8,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -21,6 +24,8 @@ using VacationMasters.Essentials;
 using VacationMasters.UserManagement;
 using VacationMasters.Wrappers;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace VacationMasters.Screens
 {
@@ -29,6 +34,7 @@ namespace VacationMasters.Screens
         private DbWrapper _dbWrapper ;
         private UserManager _userManager;
         private GroupManager _groupManager;
+         private byte[] _image;
 
         private bool _isOperationInProgress;
         public UserPage()
@@ -43,6 +49,7 @@ namespace VacationMasters.Screens
             FillPreferencesType();
             FillGroups();
             FillRadioButton();
+           
 
             Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => { Initialize(); });
         }
@@ -150,6 +157,34 @@ namespace VacationMasters.Screens
             FillConfirmPassword();
 
         }
+        public byte[] Picture { get; set; }
+
+        public ImageSource Photo
+        {
+            get
+            {
+                if (Picture == null)
+                    return null;
+                byte[] imageBytes = Picture;
+
+                var image = new BitmapImage();
+                var ms = new InMemoryRandomAccessStream();
+                ms.AsStreamForWrite().Write(imageBytes, 0, imageBytes.Length);
+                ms.Seek(0);
+
+                image.SetSource(ms);
+                ImageSource src = image;
+
+                return src;
+
+            }
+        }
+
+        public void FillImg()
+        {
+            Picture = _userManager.GetImage("Orasianu");
+
+        }
 
         public static string UserName { set; get; }
        
@@ -172,10 +207,47 @@ namespace VacationMasters.Screens
             var page = (MainPage) frame.Content;
             VisualStateManager.GoToState(page, "CancelOrderControl", true);
         }
-        private void Browse(object sender, RoutedEventArgs e)
+        private  async void Browse(object sender, RoutedEventArgs e)
         {
+       
+            FileOpenPicker open = new FileOpenPicker();
+            open.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            open.ViewMode = PickerViewMode.Thumbnail;
 
+            // Filter to include a sample subset of file types
+            open.FileTypeFilter.Clear();
+            open.FileTypeFilter.Add(".bmp");
+            open.FileTypeFilter.Add(".png");
+            open.FileTypeFilter.Add(".jpeg");
+            open.FileTypeFilter.Add(".jpg");
+
+            StorageFile file = await open.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                // Ensure the stream is disposed once the image is loaded
+                using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                {
+                    // Set the image source to the selected bitmap
+                   /* BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.DecodePixelHeight = 250;
+                    bitmapImage.DecodePixelWidth = 250;
+
+                    await bitmapImage.SetSourceAsync(fileStream);
+                    _image = bitmapImage;*/
+
+                    var reader = new Windows.Storage.Streams.DataReader(fileStream.GetInputStreamAt(0));
+                    await reader.LoadAsync((uint)fileStream.Size);
+
+                    byte[] pixels = new byte[fileStream.Size];
+
+                    reader.ReadBytes(pixels);
+
+                    _image = pixels;
+                }
+            }
         }
+        
         private void LogOut(object sender, RoutedEventArgs e)//LogOut
         {
             //this.Frame.Navigate(typeof(MainPage), null);

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Net.Http;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
+using MySql.Data.MySqlClient;
 using VacationMasters.Essentials;
 using VacationMasters.Wrappers;
 using System.Collections.Generic;
@@ -235,6 +237,25 @@ namespace VacationMasters.UserManagement
             _dbWrapper.QueryValue<object>(sql);
         }
 
+        public byte[] GetImage(string userName)
+
+        {
+            var id = GetID(userName);
+
+            return
+                _dbWrapper.RunCommand(command =>
+            {
+                command.CommandText = "SELECT Image FROM Users WHERE ID = '" +id+ "'";
+                var reader = command.ExecuteReader();
+                byte[] img;
+                while (reader.Read())
+                {
+                    img = reader[0] as byte[];
+                }
+               return img;
+            });
+            
+        }
         public List<String> GetAllEmails()
         {
             return _dbWrapper.RunCommand(command =>
@@ -269,6 +290,27 @@ namespace VacationMasters.UserManagement
             });
         }
 
+        public List<String> GetPackagesCommmand(string status)
+        {
+            //var id = GetID(userName);
+            return _dbWrapper.RunCommand(command =>
+            {
+                command.CommandText = string.Format("Select Name from Package, ChoosePackage, Orders where " +
+                    "Orders.ID = ChoosePackage.IDOrder and " +
+                    "ChoosePackage.IDPackage = Package.ID and Status = '{0}'; ", status);
+                var reader = command.ExecuteReader();
+                var list = new List<String>();
+                while (reader.Read())
+                {
+                    var name = reader.GetString(0);
+
+                    list.Add(name);
+                }
+                return list;
+            });
+
+
+        }
         public List<String> GetPreferencesTypeUser(string userName)
         {
             return _dbWrapper.RunCommand(command =>

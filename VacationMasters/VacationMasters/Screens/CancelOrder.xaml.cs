@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,16 +26,18 @@ namespace VacationMasters.Screens
     public sealed partial class CancelOrder : UserControl, INotifyPropertyChanged
     {
         private bool _isOperationInProgress;
-       
+
         private UserManager _userManager;
 
         private DbWrapper _dbWrapper;
+        public DependencyProperty dp { get; set; }
+
         public CancelOrder()
         {
             this.DataContext = this;
             this.InitializeComponent();
             FillOrders();
-           
+
         }
 
 
@@ -67,8 +70,31 @@ namespace VacationMasters.Screens
             _dbWrapper = new DbWrapper();
             _userManager = new UserManager(_dbWrapper);
             List<string> orderUser = _userManager.GetOrders("Orasianu");
-            OrdersGridView.ItemsSource = orderUser.Select(c => c.Trim()).ToArray();
+            foreach (var i in orderUser)
+            {
+                OrdersGridView.SetValue(dp, i);
+            }
+          
+            foreach (string j in OrdersGridView.Items)
+            {
+                var list = _userManager.GetPackagesCommmand(j);
+                foreach (string i in list)
+                {
+                    PackagesGridView.SetValue(dp,i);
+                }
+            }
             IsOperationInProgress = false;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var frame = (Frame)Window.Current.Content;
+            var page = (MainPage)frame.Content;
+            VisualStateManager.GoToState(page, "UserPageControl", true);
+        }
+
+
+
+       
     }
 }

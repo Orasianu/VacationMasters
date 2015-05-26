@@ -54,15 +54,15 @@
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="5*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 
 
 
             </Grid.RowDefinitions>
 
 
-            <Image HorizontalAlignment="Left"  VerticalAlignment="Top"  Grid.Row="0" Grid.Column="0"/>
-            <Button Content="Browse" HorizontalAlignment="Left" FontSize="16"  VerticalAlignment="Top" Click="Browse"  Grid.Column="1" Grid.Row="0" />
+            <Image Name="Img" HorizontalAlignment="Left"  VerticalAlignment="Top"  Grid.Row="0" Grid.Column="0"/>
+            <Button Content="Browse Image " HorizontalAlignment="Left" FontSize="16"  VerticalAlignment="Top" Click="Browse"  Grid.Column="1" Grid.Row="0" />
             <TextBox Name="text_box_email"  Margin="0,5,0,0"  MinWidth="250" HorizontalAlignment="Left" FontSize="16" TextWrapping="Wrap" Text="E-mail" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0"  />
             <PasswordBox Name="password_box"  Margin ="0,5,0,0" MinWidth="250" HorizontalAlignment="Left"  VerticalAlignment="Top" Password="Password&#xD;&#xA;Password" Grid.Row="2" Grid.Column="0" />
             <PasswordBox Name="confirm_password_box"  Margin ="0,5,0,0" MinWidth="250" HorizontalAlignment="Left" VerticalAlignment="Top"  Password="Password&#xD;&#xA;Password" Grid.Row="3" Grid.Column="0" />

@@ -75,9 +75,14 @@ namespace VacationMasters.UserManagement
         /// <param name="userName"></param>
         void BanUser(string userName);
         string GetMail(string userName);
+
         /// 
         string GetPassword(string userName);
         void UpdateUser(string user, bool newsletter, string email, string password, string passwordConfirm, List<string>preferences, List<string>groups);
+
+        byte[] GetImage(string userName);
+
+        List<String> GetPackagesCommmand(string status);
 
         int GetNewsletter(string userName);
         /// <summary>

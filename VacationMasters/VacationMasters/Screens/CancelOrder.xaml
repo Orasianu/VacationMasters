@@ -36,10 +36,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
           </Grid.RowDefinitions>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="7,21,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" />
+        <Button Content="Back" HorizontalAlignment="Left" Margin="7,21,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Click="Button_Click" />
 
 
-        <TextBlock  Margin="3" TextWrapping="Wrap" Width="88" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" TextAlignment="Right" Text="Types"/>
+        <TextBlock  Margin="3" TextWrapping="Wrap" Width="88" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" TextAlignment="Right" Text="Orders"/>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="left" Grid.Row="1" Grid.Column="1">
             <Viewbox HorizontalAlignment="Center"
@@ -48,12 +48,19 @@
                              Visibility="{Binding IsOperationInProgress,Converter={StaticResource BooleanToVisibilityConverter}}">
                 <resources:CircularProgressBar/>
             </Viewbox>
-            <GridView x:Name="OrdersGridView" SelectionMode="Multiple" Width="Auto" Height="Auto" ShowsScrollingPlaceholders="False"  VerticalAlignment="Stretch"
+            <GridView x:Name="OrdersGridView"  SelectionMode="Multiple" Width="Auto" Height="Auto" ShowsScrollingPlaceholders="False"  VerticalAlignment="Stretch"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                           ItemContainerStyle="{StaticResource StoreFrontTileStyle}"
+                    ItemsPanel="{StaticResource StoreFrontGridItemsPanelTemplate}"> 
+                <GridView x:Name="PackagesGridView" SelectionMode="Multiple" Width="Auto" Height="Auto" ShowsScrollingPlaceholders="False"  VerticalAlignment="Stretch"
                     ScrollViewer.VerticalScrollBarVisibility="Auto" 
                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                            ItemContainerStyle="{StaticResource StoreFrontTileStyle}"
                     ItemsPanel="{StaticResource StoreFrontGridItemsPanelTemplate}">
+                </GridView>
             </GridView>
+            
         </StackPanel>
     </Grid>
 </UserControl>
